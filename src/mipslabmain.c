@@ -10,7 +10,8 @@
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
-
+ void time_init( void );
+extern int globaltime;
 int main(void) {
         /*
 	  This will set the peripheral bus clock to the same frequency
@@ -53,13 +54,11 @@ int main(void) {
 	SPI2CONSET = 0x20;
 	/* SPI2CON bit ON = 1; */
 	SPI2CONSET = 0x8000;
+
+	init_timer();
 	
 	display_init();
-	display_string(0, "KTH/ICT lab");
-	display_string(1, "in Computer");
-	display_string(2, "Engineering");
-	display_string(3, "Welcome!");
-	//display_update();
+
 	
 	//display_image(96, icon);
 	const uint8_t const testimage[] = 
@@ -69,13 +68,17 @@ int main(void) {
 	0,1,1,0,
 	1,1,1,1,
 };
-	image_to_buffer(10,10,4,4,testimage);
-	display_buffer();
+	//image_to_buffer(10,10,4,4,testimage);
+//display_buffer();
 
 
 	while( 1 )
 	{
-
+		display_string(0, "KTH/ICT lab");
+		display_string(1, "in Computer");
+		display_string(2, "Engineering");
+		display_string(3, itoaconv(globaltime));
+		display_update();
 	}
 	return 0;
 }
