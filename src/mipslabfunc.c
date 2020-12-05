@@ -195,37 +195,6 @@ void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){
     }
   }
 }
-/*
-void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){
-  int i, j;
-  for(i = 0; i < w; i++){
-      int pixelX = i + x;
-      for(j = 0; j < h; j++){
-          int pixelY = j + y;
-          if(pixelX < 128 && pixelX > 0 && pixelY < 32 && pixelY > 0)
-              imageBuffer[pixelX + 128*pixelY] = data[i + w*j];
-      }
-      
-  }
-  
-}*/
-
-  /*for(i = newy; i< newy + h; ++i, k+=w) 
-  {
-    if(i < 0)
-      continue;
-    if(i > 32)
-      break;
-    for(j = newx; j < newx + w; ++j, ++k)
-    {
-      if(j < 0)
-        continue;
-      if(j > 128)
-        break;
-      imageBuffer[i*128 + j] = data[k];
-    }
-  }*/
-
 
 
 void display_buffer() {
