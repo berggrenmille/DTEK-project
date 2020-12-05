@@ -15,7 +15,7 @@
  void time_init( void );
  int get_btns(int btn);
  extern int globaltime;
- extern struct entity player;
+
  extern void game_loop();
 
 

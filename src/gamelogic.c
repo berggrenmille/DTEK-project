@@ -1,10 +1,10 @@
-#include "mipslab.h"
+#include <stdint.h>   /* Declarations of uint_32 and the like */
 #include "entity.h"
-#include "entity.c"
 
 extern struct entity player;
+
 void update_logic(int dTime){
-	float speed = dTime / 100;	
+	float speed = (float)dTime / 100.0;	
 	if(get_btns(1)){
 		player.y -= speed;
 	        if(player.y < 0)
