@@ -46,7 +46,7 @@ extern const uint8_t const icon[128];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
 
-uint8_t imageBuffer[128 * 32];
+extern uint8_t imageBuffer[128 * 32];
 /* Declare functions written by students.
    Note: Since we declare these functions here,
    students must define their functions with the exact types

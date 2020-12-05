@@ -16,10 +16,7 @@
  int get_btns(int btn);
  extern int globaltime;
  extern struct entity player;
-
-void render();
-
-void game_loop();
+ extern void game_loop();
 
 
 int main(void) {
@@ -70,22 +67,7 @@ int main(void) {
 	
 	display_init();
 
-	
-//display_image(96, icon);
+	game_loop();
 
-	//image_to_buffer(player.x,player.y,player.w,player.h,player.image);
-	//display_buffer();
-
-
-	while( 1 )
-	{
-		display_string(0, "KTH/ICT lab");
-		display_string(1, "in Computer");
-		display_string(2, "Engineering");
-		display_string(3, itoaconv(player.y));
-		display_update();
-		//image_to_buffer(0,0,4,4,testimage);
-		//display_buffer();
-	}
 	return 0;
 }
