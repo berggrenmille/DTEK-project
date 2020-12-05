@@ -220,6 +220,13 @@ void display_buffer() {
     }
 }
 
+void clear_buffer()
+{
+  int i;
+  for(i = 0; i<128*32; ++i )
+    imageBuffer[i] = 0;
+}
+
 
 void display_update(void) {
 	int i, j, k;

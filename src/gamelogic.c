@@ -4,9 +4,9 @@
 extern struct entity player;
 
 void update_logic(int dTime){
-	float speed = (float)dTime / 100.0;	
+	float speed = (float)dTime * 5 / 100.0;	
 	if(get_btns(1)){
-		player.y -= speed;
+		player.x += speed;
 	        if(player.y < 0)
  			player.y = 0;			
 	}
@@ -16,12 +16,12 @@ void update_logic(int dTime){
  			player.x = 0;			
 	}
 	if(get_btns(3)){
-		player.x += speed;
+		player.y += speed;
 	        if(player.x > 128 - player.w)
  			player.x = 128 - player.w;			
 	}
 	if(get_btns(4)){
-		player.y += speed;
+		player.y -= speed;
 	        if(player.y > 32 - player.h)
  			player.y = 32 - player.h;			
 	}

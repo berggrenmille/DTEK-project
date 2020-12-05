@@ -33,3 +33,9 @@ void init_timer( void )
 
 }
 
+void delay(int ms)
+{
+  int end = globaltime + ms;
+  while(end > globaltime){};
+}
+

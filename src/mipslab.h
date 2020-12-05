@@ -15,6 +15,7 @@ void display_string(int line, char *s);
 void display_update(void);
 void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data);
 void display_buffer(void);
+void clear_buffer(void);
 uint8_t spi_send_recv(uint8_t data);
 
 /* Declare lab-related functions from mipslabfunc.c */
@@ -52,7 +53,7 @@ extern uint8_t imageBuffer[128 * 32];
    students must define their functions with the exact types
    specified in the laboratory instructions. */
 /* Written as part of asm lab: delay, time2string */
-void delay(int);
+
 void time2string( char *, int );
 /* Written as part of i/o lab: getbtns, getsw, enable_interrupt */
 int getbtns(void);

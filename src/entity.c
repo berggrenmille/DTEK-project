@@ -24,7 +24,7 @@ struct entity easy_car =
 
 struct entity medium_car =
 {
-	150.,16.,6,4,
+	10.,16.,6,4,
 	{	
 		1,0,1,1,0,1,
         1,1,1,1,1,1,
