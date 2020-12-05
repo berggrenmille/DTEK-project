@@ -10,11 +10,16 @@
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
+#include "entity.h"
 //Forward declarations
  void time_init( void );
  int get_btns(int btn);
  extern int globaltime;
+ extern struct entity player;
 
+void render();
+
+void game_loop();
 
 
 int main(void) {
@@ -67,15 +72,9 @@ int main(void) {
 
 	
 //display_image(96, icon);
-const uint8_t const player[] = 
-{	
-	1,1,1,1,
-	0,1,1,0,
-	0,1,1,0,
-	1,1,1,1,
-};
-	//image_to_buffer(10,10,4,4,testimage);
-//display_buffer();
+
+	//image_to_buffer(player.x,player.y,player.w,player.h,player.image);
+	//display_buffer();
 
 
 	while( 1 )
@@ -83,7 +82,7 @@ const uint8_t const player[] =
 		display_string(0, "KTH/ICT lab");
 		display_string(1, "in Computer");
 		display_string(2, "Engineering");
-		display_string(3, itoaconv(get_btns(1)));
+		display_string(3, itoaconv(player.y));
 		display_update();
 		//image_to_buffer(0,0,4,4,testimage);
 		//display_buffer();
