@@ -5,8 +5,6 @@
 
 int globaltime = 0;
 
-volatile unsigned* portE = (volatile unsigned*)0xbf886110;
-volatile unsigned* trisE = (volatile unsigned*)0xbf886100;
 /* Interrupt Service Routine */
 void user_isr( void )
 {
@@ -19,12 +17,6 @@ void init_timer( void )
 {
     __asm__("ei"); //Enable interupts
 
-
-  *trisE &= ~0xff; //Set bit index 7 - 0 to output
-  *portE = 0;      //Initialize PortE to 0
-
-  TRISD  |= 0xFE0; //Set bit index 5 - 11 to output
-
   //Timer Setup
 
   //Init Timer interrupt 
@@ -35,10 +27,9 @@ void init_timer( void )
   TMR2 = 0x0; //Reset the timer value
 
   T2CON |= 0x70; //Sets bit 6 - 4 to 111, aka prescaling 1:256
-  PR2 = 313; //80*10^6 / 256 / 10 (prescaling 1:256)
+  PR2 = 313; //80*10^6 / 256 / 1000 (prescaling 1:256) which is 1 ms
 
   T2CON |= 0x8000; //Start the timer
 
-  return;
 }
 
