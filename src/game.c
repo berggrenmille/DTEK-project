@@ -21,7 +21,18 @@ struct highscore
     char initials[3];
 };
 
-struct highscore highscorelist[3];
+struct highscore highscorelist[] = 
+{
+    {
+        0,{'_','_','_'}
+    },
+    {
+        0,{'_','_','_'}
+    },
+    {
+        0,{'_','_','_'}
+    }
+};
 
 int score = 0;
 int diff = 0;
@@ -119,7 +130,7 @@ void game_loop()
     for(;;)
     {
         //End menu
-        while(!isRunning && score > 0)
+        while(!isRunning && score > 0 && !get_btns(1))
         {
             display_string(0, "GAME OVER");
             display_string(1, "SCORE (s * diff)");
@@ -132,7 +143,6 @@ void game_loop()
             {
                 while(get_btns(1)){}
                 char initials[]={'_', '_','_'};
-                int btnlock = 0;
                 while(!get_btns(1) || (initials[0] == '_' || initials[0] == '_' || initials[0] == '_'))
                 {
                     display_string(0, "save highscore");
@@ -166,13 +176,34 @@ void game_loop()
                         else
                             initials[2]++;
                     }
-
                 }
                 //Save high score
+                if(highscorelist[0].score < score * (diff+1) / 100)
+                {
+                    highscorelist[0].score = score * (diff+1) / 100;
+                    highscorelist[0].initials[0] = initials[0];
+                    highscorelist[0].initials[1] = initials[1];
+                    highscorelist[0].initials[2] = initials[2];
+                }
+                else if(highscorelist[1].score < score * (diff+1) / 100)
+                {
+                    highscorelist[1].score = score * (diff+1) / 100;
+                    highscorelist[1].initials[0] = initials[0];
+                    highscorelist[1].initials[1] = initials[1];
+                    highscorelist[1].initials[2] = initials[2];
+                }
+                else if(highscorelist[2].score < score * (diff+1) / 100)
+                {
+                    highscorelist[2].score = score * (diff+1) / 100;
+                    highscorelist[2].initials[0] = initials[0];
+                    highscorelist[2].initials[1] = initials[1];
+                    highscorelist[2].initials[2] = initials[2];
+                }
+                score = 0;
             }
         }        
         //Main menu
-        while(!isRunning)
+        while(!isRunning && score == 0 && !get_btns(1))
         {
             display_string(0, "Extreme Racer 9000");
             display_string(1, "1. play");
@@ -191,33 +222,61 @@ void game_loop()
                 init_world();
                 isRunning = 1;
             }
-            //Check diff btn
-            if(get_btns(3) && !diffBtn)
+
+            if(get_btns(2))
             {
-                diffBtn = 1; //Prevent difficulty to change until button is released
+                while(!get_btns(1))
+                {
+                    char h1[24] = "1.";
+                    char h2[24] = "2.";
+                    char h3[24] = "3.";
+                    strcat(h1, highscorelist[0].initials);
+                    strcat(h1, ": ");
+                    strcat(h1, itoaconv(highscorelist[0].score));
+
+                    strcat(h2, highscorelist[1].initials);
+                    strcat(h2, ": ");
+                    strcat(h2, itoaconv(highscorelist[1].score));
+
+                    strcat(h3, highscorelist[2].initials);
+                    strcat(h3, ": ");
+                    strcat(h3, itoaconv(highscorelist[2].score));
+                    display_string(0, "1. back");
+
+                    display_string(1, &h1[0]);
+                    display_string(2, &h2[0]);
+                    display_string(3, &h3[0]);
+                    display_update();
+                }
+            }
+
+            //Check diff btn
+            if(get_btns(3))
+            {
+                while(get_btns(3)){} //Prevent difficulty to change until button is released
                 if(diff == 2)
                     diff = 0;
                 else
                     ++diff;
             }
-            else if(!get_btns(3))
-                diffBtn = 0; //Allow difficulty to be changed
-            
+
         }
         
         //Game
        // delay(32);
-  
-        update_logic(delta); 
-        clear_buffer();
-        render_world();
-        render_player();
-        display_buffer();
-   
-        //Calc deltatimer
-        prevTime = currentTime;
-        currentTime = globaltime;
-        delta = currentTime - prevTime;
+        if(isRunning)
+        {
+            update_logic(delta); 
+            clear_buffer();
+            render_world();
+            render_player();
+            display_buffer();
+    
+            //Calc deltatimer
+            prevTime = currentTime;
+            currentTime = globaltime;
+            delta = currentTime - prevTime;
+        }
     }
 
     
