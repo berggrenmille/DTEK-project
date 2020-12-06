@@ -10,11 +10,23 @@ extern struct entity player;
 extern void delay(int ms);
 extern void update_logic(int dTime);
 
+struct entity enemies[10];
+int currentenemies = 0;
 
+int score = 0;
+
+void spawnenemy()
+{
+
+}
 
 void render_world()
 {
-
+    int i;
+    for(i = 0; i<10; ++i)
+    {
+        image_to_buffer(enemies[i].x,enemies[i].y,enemies[i].w,enemies[i].h,enemies[i].image);
+    }
 }
 void render_player()
 {
@@ -30,6 +42,12 @@ void game_loop()
     int delta = 0;
     for(;;)
     {
+        //End menu
+        while(!isRunning && score > 0)
+        {
+            display_string(0, "GAME OVER");
+            display_update();
+        }        
         //Main menu
         while(!isRunning)
         {
@@ -46,6 +64,7 @@ void game_loop()
         //Game
        // delay(32);
         update_logic(delta);
+        render_world();
         render_player();
         //Calc deltatimer
         prevTime = currentTime;
