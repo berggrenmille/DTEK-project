@@ -27,7 +27,7 @@ uint8_t hard_image[] =
 
 struct entity player =
 {
-	5.,16.,4,4,player_image
+	1.0,16.,4,4,player_image
 };
 
 struct entity easy_car =

@@ -4,12 +4,12 @@
 #include "entity.h"
 
 
-extern int globaltime;
 extern struct entity player;
 extern struct entity easy_car;
 extern struct entity medium_car;
 extern struct entity hard_car;
 
+extern int globaltime;
 extern void delay(int ms);
 extern void update_logic(int dTime);
 
@@ -18,27 +18,43 @@ struct entity enemies[10];
 int score = 0;
 int diff = 0;
 
+int isRunning = 0;
+int prevTime = 0;
+int currentTime = 0;
+int delta = 0;
+
 void init_world()
 {
+    currentTime = globaltime;
+    prevTime = globaltime;
     if(diff == 0)
     {
         int i;
         for( i = 0; i<10; ++i)
         {
-            
-            enemies[i] = easy_car;
-            //enemies[i].x = rand() % 100;
-          //  enemies[i].y = (rand() % (32-enemies[i].h)) + enemies[i].h;
-          enemies[i].x = 15.;
-          enemies[i].y = 15.;
+          enemies[i] = easy_car;
+          enemies[i].x = -15.;
+          enemies[i].y = -15.;
         }
     }else if(diff == 1)
     {
-        /* code */
+        int i;
+        for( i = 0; i<10; ++i)
+        {
+          enemies[i] = medium_car;
+          enemies[i].x = -15.;
+          enemies[i].y = -15.;
+        }
     }
     else if(diff == 2)
     {
-
+        int i;
+        for( i = 0; i<10; ++i)
+        {
+          enemies[i] = hard_car;
+          enemies[i].x = -15.;
+          enemies[i].y = -15.;
+        }
     }
     
 }
@@ -54,16 +70,12 @@ void render_world()
 }
 void render_player()
 {
-    clear_buffer();
     image_to_buffer(player.x,player.y,player.w, player.h, player.image);
 
 }
 void game_loop()
 {
-    int isRunning = 0;
-    int prevTime = 0;
-    int currentTime = 0;
-    int delta = 0;
+
     int diffBtn = 0;
     for(;;)
     {
@@ -104,14 +116,18 @@ void game_loop()
             }
             else if(!get_btns(3))
                 diffBtn = 0; //Allow difficulty to be changed
+            
         }
         
         //Game
        // delay(32);
-        update_logic(delta);
+  
+        update_logic(delta); 
+        clear_buffer();
         render_world();
-        display_buffer();
         render_player();
+        display_buffer();
+   
         //Calc deltatimer
         prevTime = currentTime;
         currentTime = globaltime;
