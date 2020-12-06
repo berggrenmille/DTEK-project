@@ -15,6 +15,14 @@ extern void update_logic(int dTime);
 
 struct entity enemies[10];
 
+struct highscore
+{
+    int score;
+    char initials[3];
+};
+
+struct highscore highscorelist[3];
+
 int score = 0;
 int diff = 0;
 
@@ -70,6 +78,37 @@ void render_world()
 }
 void render_player()
 {
+    int newx;
+    int newy;
+  
+     int i, j, k = 0;
+
+    //for each row
+    for(i = 0; i < player.h; ++i) 
+    {
+
+        //pixel y pos
+        newy = player.y + i;
+        //Check if pixel is outside screenspace
+        if(newy < 0)
+        continue;
+        if(newy >= 32)
+        break;
+        //For each column
+        for(j = 0; j < player.w; ++j)
+        {
+        //pixel x pos
+        newx = player.x + j;
+        //Check if pixel is outside screenspace
+        if(newx < 0)
+            continue;
+        if(newx >= 128)
+            break;
+        if(imageBuffer[newy*128 + newx] && player.image[i*player.w+j])
+            isRunning = 0;
+        }
+    }
+
     image_to_buffer(player.x,player.y,player.w, player.h, player.image);
 
 }
@@ -83,7 +122,26 @@ void game_loop()
         while(!isRunning && score > 0)
         {
             display_string(0, "GAME OVER");
+            display_string(1, "SCORE (s * diff)");
+            display_string(2, itoaconv(score * (diff+1) / 100));
+            display_string(3, "1. to continue");
             display_update();
+            delay(500);
+            //high score menu
+            if(get_btns(1))
+            {
+                delay(500);
+                char initials[]={'_', '_','_'};
+                while(!get_btns(1) && (initials[0] == '_' && initials[0] == '_' && initials[0] == '_'))
+                {
+                    display_string(0, "save highscore");
+                    display_string(1,initials);
+                    display_string(2,".2&.3&.4 to edit");
+                    display_string(3, ".1 save");
+                    display_update();
+                }
+
+            }
         }        
         //Main menu
         while(!isRunning)
