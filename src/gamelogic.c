@@ -3,6 +3,7 @@
 
 extern struct entity player;
 extern int score;
+extern struct entity enemies[];
 int interval = 0;
 
 void update_logic(int dTime){

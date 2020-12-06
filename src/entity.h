@@ -5,7 +5,7 @@
 {
     float x,y;
     int w,h;
-    uint8_t image[];
+    uint8_t* image;
 };
 
 #endif
