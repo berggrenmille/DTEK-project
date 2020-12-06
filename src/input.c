@@ -20,3 +20,16 @@ int get_btns(int btn)
         default: return 0;
     }
 }
+
+int get_swts(int swt)
+{
+    int result = (PORTD >> 8) & 0xF;
+    switch(swt)
+    {
+        case 1: return result & 0x1;
+        case 2: return (result >> 1) & 0x1;
+        case 3: return (result >> 2) & 0x1;
+        case 4: return (result >> 3) & 0x1;
+        default: return 0;
+    }
+}
