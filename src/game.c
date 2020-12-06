@@ -34,8 +34,9 @@ void game_loop()
         while(!isRunning)
         {
             display_string(0, "Extreme Racer 9000");
-            display_string(1, "Press 1 to play");
-            display_string(2, "press 2 for high score");
+            display_string(1, "1. play");
+            display_string(2, "2. high score");
+            display_string(3, "3. Diff: easy");
             display_update();
             if(get_btns(1))
                 isRunning = 1;
