@@ -126,21 +126,49 @@ void game_loop()
             display_string(2, itoaconv(score * (diff+1) / 100));
             display_string(3, "1. to continue");
             display_update();
-            delay(500);
+    
             //high score menu
             if(get_btns(1))
             {
-                delay(500);
+                while(get_btns(1)){}
                 char initials[]={'_', '_','_'};
-                while(!get_btns(1) && (initials[0] == '_' && initials[0] == '_' && initials[0] == '_'))
+                int btnlock = 0;
+                while(!get_btns(1) || (initials[0] == '_' || initials[0] == '_' || initials[0] == '_'))
                 {
                     display_string(0, "save highscore");
                     display_string(1,initials);
-                    display_string(2,".2&.3&.4 to edit");
-                    display_string(3, ".1 save");
+                    display_string(2,"2. 3. 4. to edit");
+                    display_string(3, "1. save");
                     display_update();
-                }
+                    if(get_btns(4))
+                    {
+                        while(get_btns(4)){} // lock
+                        if(initials[0] == '_' || initials[0] == 'z')
+                            initials[0] = 'a';
+                        else
+                            initials[0]++;
+                    }
 
+                    if(get_btns(3))
+                    {
+                        while(get_btns(3)){} // lock
+                        if(initials[1] == '_' || initials[1] == 'z')
+                            initials[1] = 'a';
+                        else
+                            initials[1]++;
+                    }
+
+                    if(get_btns(2))
+                    {
+                        while(get_btns(2)){} // lock
+                        if(initials[2] == '_' || initials[2] == 'z')
+                            initials[2] = 'a';
+                        else
+                            initials[2]++;
+                    }
+
+                }
+                //Save high score
             }
         }        
         //Main menu
