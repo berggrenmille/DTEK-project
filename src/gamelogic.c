@@ -33,10 +33,22 @@ void update_logic(int dTime){
 	//Move the enemies
 	int i;
 	for(i = 0; i < 10; i++)
-		enemies[i].x -= speed*(score+1000)/10000;
+	{
+		if(enemies[i].x > -10)
+		{
+		float extraSpeed = (float)score/100000.;
+		if(extraSpeed > 10.)
+			enemies[i].x -= speed + 10.;
+		else
+			enemies[i].x -= speed + extraSpeed;
+		}
+	}
+	//	enemies[i].x -= speed + (float)score/10000.;
+
+	score += dTime;
 
 	//Try to randomly spawn an enemy after 2 seconds
-	if(interval > 2000){
+	if(interval > 500){
 		interval = 0;
 		int randEnemy = rand() % 10;
 		if(enemies[randEnemy].x + enemies[randEnemy].w < 0){
