@@ -174,7 +174,7 @@ void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){
   {
 
     //pixel y pos
-    newy = y - h/2 + i;
+    newy = y + i;
     //Check if pixel is outside screenspace
     if(newy < 0)
       continue;
@@ -184,7 +184,7 @@ void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){
     for(j = 0; j < w; ++j)
     {
       //pixel x pos
-      newx = x - w/2 + j;
+      newx = x + j;
       //Check if pixel is outside screenspace
       if(newx < 0)
         continue;

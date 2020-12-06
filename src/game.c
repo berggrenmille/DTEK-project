@@ -1,6 +1,8 @@
 #include <stdint.h>   /* Declarations of uint_32 and the like */
 #include "mipslab.h"
+#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "entity.h"
+
 
 extern int globaltime;
 extern struct entity player;
@@ -14,7 +16,7 @@ void render_world()
 {
 
 }
-void renderPlayer()
+void render_player()
 {
     clear_buffer();
     image_to_buffer(player.x,player.y,player.w, player.h, player.image);
@@ -29,20 +31,27 @@ void game_loop()
     for(;;)
     {
         //Main menu
-        while(isRunning)
+        while(!isRunning)
         {
+            display_string(0, "Extreme Racer 9000");
+            display_string(1, "Press 1 to play");
+            display_string(2, "press 2 for high score");
+            display_update();
+            if(get_btns(1))
+                isRunning = 1;
 
         }
-
+        srand(globaltime);
         //Game
        // delay(32);
         update_logic(delta);
-        renderPlayer();
+        render_player();
+        //Calc deltatimer
         prevTime = currentTime;
         currentTime = globaltime;
         delta = currentTime - prevTime;
     }
-    srand(globaltime);
+
     
     //
 }
