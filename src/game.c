@@ -145,6 +145,7 @@ void game_loop()
                 char initials[]={'_', '_','_'};
                 while(!get_btns(1) || (initials[0] == '_' || initials[0] == '_' || initials[0] == '_'))
                 {
+      
                     display_string(0, "save highscore");
                     display_string(1,initials);
                     display_string(2,"2. 3. 4. to edit");
@@ -277,19 +278,18 @@ void game_loop()
             currentTime = globaltime;
             delta = currentTime - prevTime;
 
-	    //Pausing
-	    if(get_swts(1)){
-		while(get_swts(1)){
-			display_string(0, "GAME PAUSED");
-			display_string(1, "CURRENT SCORE:");
-			display_string(2, itoaconv(score * (diff+1) / 100));
-			display_string(3, "SW1 TO UNPAUSE");
-			display_update();
-		}
-		int pausedTime = globaltime - currentTime;
-		prevTime += pausedTime;
-		currentTime += pausedTime;
-	    }
+            //Pausing
+            while(get_swts(1)){
+                display_string(0, "GAME PAUSED");
+                display_string(1, "CURRENT SCORE:");
+                display_string(2, itoaconv(score * (diff+1) / 100));
+                display_string(3, "SW1 TO UNPAUSE");
+                display_update();
+                prevTime = globaltime;
+                currentTime = globaltime;
+            }
+
+            
         }
     }
 
