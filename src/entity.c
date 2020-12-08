@@ -25,6 +25,8 @@ uint8_t hard_image[] =
         	0,1,1,0,0,1,1,0
 	};
 
+
+
 struct entity player =
 {
 	1.0,16.,4,4,player_image

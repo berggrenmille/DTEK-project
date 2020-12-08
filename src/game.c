@@ -206,7 +206,7 @@ void game_loop()
         //Main menu
         while(!isRunning && score == 0 && !get_btns(1))
         {
-            display_string(0, "Extreme Racer 9000");
+            display_string(0, "Extreme Racing");
             display_string(1, "1. play");
             display_string(2, "2. high score");
             if(diff == 0)
@@ -273,7 +273,7 @@ void game_loop()
             render_player();
             display_buffer();
     
-            //Calc deltatimer
+            //Calc deltatime
             prevTime = currentTime;
             currentTime = globaltime;
             delta = currentTime - prevTime;
