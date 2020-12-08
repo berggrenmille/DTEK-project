@@ -10,7 +10,7 @@ void init_input()
 
 int get_btns(int btn)
 {
-    int result = ((PORTD >> 4) & 0xE) | ((PORTF >> 1) & 0x1);
+    int result = ((PORTD >> 4) & 0xE) | ((PORTF >> 1) & 0x1); //The bits for the 4 buttons
     switch(btn)
     {
         case 1: return result & 0x1;
@@ -23,7 +23,7 @@ int get_btns(int btn)
 
 int get_swts(int swt)
 {
-    int result = (PORTD >> 8) & 0xF;
+    int result = (PORTD >> 8) & 0xF; //The bits for the 4 switches
     switch(swt)
     {
         case 1: return result & 0x1;
