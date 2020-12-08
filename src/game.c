@@ -265,7 +265,6 @@ void game_loop()
         }
         
         //Game
-       // delay(32);
         if(isRunning)
         {
             update_logic(delta); 
