@@ -224,7 +224,7 @@ void game_loop()
                 init_world();
                 isRunning = 1;
             }
-
+            //Check highscore btn
             if(get_btns(2))
             {
                 while(!get_btns(1))
@@ -252,7 +252,7 @@ void game_loop()
                 }
             }
 
-            //Check diff btn
+            //Check difficulty btn
             if(get_btns(3))
             {
                 while(get_btns(3)){} //Prevent difficulty to change until button is released
