@@ -162,7 +162,7 @@ void display_image(int x, const uint8_t *data) {
 	}
 }
 
-void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){
+void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){ //Add a block of pixel data to the image buffer
   //calculated so position is middle of image
   int newx;
   int newy;
@@ -197,10 +197,10 @@ void image_to_buffer(int x, int y, uint8_t w, uint8_t h, uint8_t* data){
 }
 
 
-void display_buffer() {
+void display_buffer() { //display the whole image buffer (128x32)
     int i, j, t;
     char data;
-    for(i = 0; i < 4; i++) {
+    for(i = 0; i < 4; i++) { //Go through the pages
         DISPLAY_CHANGE_TO_COMMAND_MODE;
 
         spi_send_recv(0x22);
@@ -214,8 +214,8 @@ void display_buffer() {
         for(t = 0; t < 128; t++){
             data = 0;
             for(j = 0; j < 8; j++)
-                data |= imageBuffer[t + 1024*i + 128*j] << j;
-            spi_send_recv(data);
+                data |= imageBuffer[t + 1024*i + 128*j] << j; //Makes combines the pixels into a byte column for 8 pixels
+            spi_send_recv(data); //Sends the byte data to the screen
         }
     }
 }
