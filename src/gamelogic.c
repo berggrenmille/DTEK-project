@@ -8,7 +8,8 @@ int interval = 0;
 
 void update_logic(int dTime){
 	float speed = (float)dTime * 5 / 100.0;	
-	interval += dTime;
+	interval += dTime; //Time from last spawned enemy
+	//Move the player depending on input
 	if(get_btns(1)){
 		player.x += speed;
 	        if(player.x > 128 - player.w)
@@ -34,7 +35,7 @@ void update_logic(int dTime){
 	int i;
 	for(i = 0; i < 10; i++)
 	{
-		if(enemies[i].x > -10)
+		if(enemies[i].x > -10) //Only move if the enemy is reasonably within the screen
 		{
 		float extraSpeed = (float)score/100000.;
 		if(extraSpeed > 10.)
@@ -43,11 +44,10 @@ void update_logic(int dTime){
 			enemies[i].x -= speed + extraSpeed;
 		}
 	}
-	//	enemies[i].x -= speed + (float)score/10000.;
 
 	score += dTime;
 
-	//Try to randomly spawn an enemy after 2 seconds
+	//Try to randomly spawn an enemy after 0.5 seconds
 	if(interval > 500){
 		interval = 0;
 		int randEnemy = rand() % 10;
