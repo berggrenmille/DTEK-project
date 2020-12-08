@@ -89,6 +89,7 @@ void render_world()
 }
 void render_player()
 {
+    //Player collision
     int newx;
     int newy;
   
